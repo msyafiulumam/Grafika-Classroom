@@ -57,6 +57,15 @@
     <Image Include="whiteboard.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="papan.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="kotakpensil.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="eraser.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Lesson04.rc">

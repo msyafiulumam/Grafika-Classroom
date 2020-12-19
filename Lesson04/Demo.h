@@ -14,7 +14,9 @@ public:
 	~Demo();
 private:
 	GLuint shaderProgram, VBO, VAO, EBO, texture, VBO2, VAO2, EBO2, texture2;
-	GLuint VBO3, VAO3, EBO3, texture3;
+	GLuint VBO3, VAO3, EBO3, texture3;//papan
+	GLuint VBO4, VAO4, EBO4, texture4;//penggaris
+	GLuint VBO5, VAO5, EBO5, texture5;//kotak pensil
 	float viewCamX, viewCamY, viewCamZ, upCamX, upCamY, upCamZ, posCamX, posCamY, posCamZ, CAMERA_SPEED, fovy;
 	virtual void Init();
 	virtual void DeInit();
@@ -34,6 +36,10 @@ private:
 	void DrawColoredFrame();
 	void BuildColoredStand();
 	void DrawColoredStand();
+	void BuildColoredRuler();
+	void DrawColoredRuler();
+	void BuildColoredBox();
+	void DrawColoredBox();
 
 };
 

@@ -139,7 +139,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="crate.png" />
+    <Image Include="eraser.jpg" />
+    <Image Include="kotakpensil.jpg" />
     <Image Include="marble.png" />
+    <Image Include="papan.jpg" />
     <Image Include="whiteboard.jpg" />
     <Image Include="whiteboard.png" />
   </ItemGroup>
