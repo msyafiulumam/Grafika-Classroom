@@ -21,7 +21,6 @@ void Demo::Init() {
 
 	BuildColoredPlane();
 
-	DrawColoredWhiteBoard();
 
 	InitCamera();
 }
@@ -146,7 +145,6 @@ void Demo::Render() {
 
 	DrawColoredPlane();
 
-	DrawColoredWhiteBoard();
 
 	glDisable(GL_DEPTH_TEST);
 }
@@ -207,8 +205,7 @@ void Demo::BuildColoredFrame() {
 	};
 
 	unsigned int indices[] = {
-		//0,  2,  1,  0,  3,  2,   // front
-		0,	0,	0,	0,	0,	0,
+		0,  2,  1,  0,  3,  2,   // front
 		4,  5,  6,  4,  6,  7,   // right
 		8,  9,  10, 8,  10, 11,  // back
 		12, 14, 13, 12, 15, 14,  // left
@@ -402,79 +399,3 @@ int main(int argc, char** argv) {
 	app.Start("Camera: Free Camera Implementation", 800, 600, false, true);
 }
 
-void Demo::BuildColoredWhiteBoard()
-{
-	glGenTextures(1, &texture3);
-	glBindTexture(GL_TEXTURE_2D, texture3);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	int width, height;
-	unsigned char* image = SOIL_load_image("whiteboard.png", &width, &height, 0, SOIL_LOAD_RGBA);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	// set up vertex data (and buffer(s)) and configure vertex attributes
-	// ------------------------------------------------------------------
-	float vertices[] = {
-		// format position, tex coords
-		// front
-		0, 5, 4, 0, 0,			// 0 4
-		40, 5, 4, 1, 0,			// 1 5
-		40, 30, 4, 1, 1,		// 2 1
-		0, 30, 4, 0, 1,			// 3 0
-
-	};
-
-	unsigned int indices[] = {
-		0,  2,  1,  0,  3,  2   // front
-		
-	};
-
-	glGenVertexArrays(1, &VAO3);
-	glGenBuffers(1, &VBO3);
-	glGenBuffers(1, &EBO3);
-	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(VAO3);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO3);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO3);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	// define position pointer layout 0
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(0);
-
-	// define texcoord pointer layout 1
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-
-	// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	// You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-	// VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-	glBindVertexArray(0);
-
-	// remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-}
-
-void Demo::DrawColoredWhiteBoard()
-{
-	glUseProgram(shaderProgram);
-
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, texture3);
-	glUniform1i(glGetUniformLocation(this->shaderProgram, "ourTexture"), 0);
-
-	glBindVertexArray(VAO3); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindVertexArray(0);
-}

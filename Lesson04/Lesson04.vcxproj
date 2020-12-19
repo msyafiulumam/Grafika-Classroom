@@ -141,6 +141,7 @@
     <Image Include="crate.png" />
     <Image Include="marble.png" />
     <Image Include="whiteboard.jpg" />
+    <Image Include="whiteboard.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Lesson04.rc" />
