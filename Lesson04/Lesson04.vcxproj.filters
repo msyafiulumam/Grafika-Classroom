@@ -54,6 +54,9 @@
     <Image Include="whiteboard.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="whiteboard.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Lesson04.rc">
