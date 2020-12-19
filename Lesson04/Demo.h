@@ -14,6 +14,7 @@ public:
 	~Demo();
 private:
 	GLuint shaderProgram, VBO, VAO, EBO, texture, VBO2, VAO2, EBO2, texture2;
+	GLuint VBO3, VAO3, EBO3, texture3;
 	float viewCamX, viewCamY, viewCamZ, upCamX, upCamY, upCamZ, posCamX, posCamY, posCamZ, CAMERA_SPEED, fovy;
 	virtual void Init();
 	virtual void DeInit();
@@ -31,6 +32,8 @@ private:
 	void FlyCamera(float speed);
 	void BuildColoredFrame();
 	void DrawColoredFrame();
+	void BuildColoredStand();
+	void DrawColoredStand();
 
 };
 
